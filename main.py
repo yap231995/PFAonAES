@@ -26,4 +26,13 @@ CiphertextList = GenerateCiphertext(key_matrix1,800)
 freqTable = CountValueOver16Bytes(CiphertextList)
 GuessFaultValue = FaultValue(freqTable)
 print("GuessFaultValue:" + str(GuessFaultValue))
+#TODO: Visualisation of the number of ciphertext needed.
 
+
+
+##Retrieving C_min
+##TODO: visualsing of the num of ciphertext anmd c_min 
+print("C_min matrix:")
+C_min = PFA_Maxlikelihood(freqTable, GuessFaultValue)
+print(C_min)
+## TODO: check PFA Maxlikelihood is it correct
