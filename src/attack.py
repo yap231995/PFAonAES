@@ -52,7 +52,9 @@ def PFA_Maxlikelihood_single_Byte(freqTable, FaultValue, j):
         if freqTable[j][theta] == 0:
             value = theta ^ FaultValue
             prob = 2**freqTable[j][value]
+        ##print(str(theta) + ": prob - "+ str(prob))
         if(maxprob < prob):
+            ##print("j:" + str(j) + " "+ str(theta) + ": prob - "+ str(prob))
             maxprob = prob
             maxtheta = theta
     return maxtheta
@@ -66,3 +68,18 @@ def PFA_Maxlikelihood(freqTable, FaultValue):
         x = PFA_Maxlikelihood_single_Byte(freqTable,FaultValue, j)
         C_min[col][row] = x
     return C_min
+
+def PossibleKey(SboxIndex, C_min):
+    key = [[0 for j in range(0, 4)] for n in range(0, 4)]
+    for j in range(0, 16):
+        row = j % 4
+        col = j // 4
+        key[col][row] = C_min[col][row] ^ s_box[SboxIndex]
+    return key
+
+def FlattenXorSqMatrix(matrix1, matrix2):
+    matrix = [0 for j in range(0, 16)]
+    for j in range(0, 4):
+        for i in range(0, 4):
+            matrix[4*j + i] = matrix1[j][i] ^ matrix2[j][i]
+    return matrix

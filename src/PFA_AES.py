@@ -26,11 +26,11 @@ def faultinjection():
     random.seed(10)
     randomNumber = random.randint(0,255)
     randomInt = random.randint(0,255)
-    print("randomNumber: " + str(randomNumber))
-    print("randomInt: " + str(randomInt))
-    print("original faultvalue: " +str(s_box[randomInt]^randomNumber))
+    ##print("randomNumber: " + str(randomNumber))
+    ##print("randomInt: " + str(randomInt))
+    ##print("original faultvalue: " +str(s_box[randomInt]^randomNumber))
     PFA_s_box[randomInt]= randomNumber
-    return randomNumber
+    return (randomNumber, randomInt)
 
 
 
