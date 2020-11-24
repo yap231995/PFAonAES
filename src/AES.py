@@ -75,8 +75,7 @@ def inv_shiftrow(matrix):
     matrix[0][3],matrix[1][3],matrix[2][3], matrix[3][3] = matrix[1][3], matrix[2][3], matrix[3][3], matrix[0][3]
 
 
-def xtimes(
-        a):  ### note this is actually vulnerable to power analysis, actually right now is mostly implemented using a table of all the values of x.
+def xtimes(a):  ### note this is actually vulnerable to power analysis, actually right now is mostly implemented using a table of all the values of x.
     if (a & 0x80):  ##this will return true if there is '1' in the x^7 position.
         return (((
                              a << 1) ^ 0x1B) & 0xFF)  ### ^0x1B is because x^8 = x^4+x^3+x+1 so just sub and xoring, &0xFF is trunc all those is above degree 7.
@@ -94,15 +93,13 @@ def mix_single_column(column):
     column[3] ^= xtimes(column[3] ^ u) ^ t
 
 
-def mix_column(
-        matrix):  ## Look at The Design of Rijndael section Sec 4.1.2 this is to optimize the code so as to not use xtimes many times.
+def mix_column(matrix):  ## Look at The Design of Rijndael section Sec 4.1.2 this is to optimize the code so as to not use xtimes many times.
     assert len(matrix) == 4 and len(matrix[0]) == 4
     for i in range(4):
         mix_single_column(matrix[i])
 
 
-def inv_mix_column(
-        matrix):  ##Can split the matrix into 2 a small one then followed by mix column matrix. Look at The Design of Rijndael section Sec 4.1.3
+def inv_mix_column(matrix):  ##Can split the matrix into 2 a small one then followed by mix column matrix. Look at The Design of Rijndael section Sec 4.1.3
     assert len(matrix) == 4 and len(matrix[0]) == 4
     for i in range(4):
         col = matrix[i]
@@ -120,7 +117,7 @@ def inv_mix_column(
 def add_key(matrix, key_matrix):
     for i in range(4):
         for j in range(4):
-            matrix[i][j]^= key_matrix[i][j]
+            matrix[i][j] ^= key_matrix[i][j]
 
 
 r_con = (
